@@ -131,3 +131,25 @@ def test():
 
 if __name__ == '__main__':
     test()
+"""
+class Counter:
+    def __init__(self, func):
+        self.func = func
+        self.count = 0
+
+    def __call__(self, *args, **kwargs):
+        self.count += 1
+        return self.func(*args, **kwargs)
+
+@Counter
+def foo():
+    pass
+
+for i in range(10):
+    foo()
+
+print(foo.count)  # 10
+首先这里的@Counter是装饰器，执行起来顺序是 foo = Counter(foo)， 实例化，把foo函数传到类Counter里面，并存到对象属性里面，然后返回foo = Counter实例。 这时foo已经是Counter实例，而不是本身foo函数。
+当执行foo()的时候，其实已经变成了，执行__call__函数，而这个函数里面是执行了本身的self.func 即foo的实际逻辑， 而且加上了计算调用次数。这样就记录状态了。
+太厉害了，这样的实现方式。
+"""

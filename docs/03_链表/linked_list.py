@@ -130,10 +130,23 @@ class LinkedList(object):
             curnode.next = prevnode
 
             if nextnode is None:
-                self.root.next = curnode
+                self.root.next = curnode # 更新头节点
 
             prevnode = curnode
             curnode = nextnode
+    
+    def insert(self, value, data):
+        insert_node = Node(data)
+        prevnode = self.root
+        for curnode in self.iter_node():
+            if curnode.value == value:
+                prevnode.next = insert_node
+                insert_node.next = curnode
+            prevnode = curnode
+
+
+
+
 
 
 def test_linked_list():
@@ -201,8 +214,20 @@ def test_linked_list_append():
     ll.append(2)
     assert list(ll) == [1, 2]
 
+def test_linked_list_insert():
+    ll = LinkedList()
+    ll.append(3)
+    ll.append(4)
+    ll.append(5)
+    ll.append(6)
+    ll.append(8)
+    print(list(ll))
+    ll.insert(3, 7)
+    print(list(ll))
+
 
 if __name__ == '__main__':
     test_linked_list()
     test_linked_list_append()
     test_linked_list_reverse()
+    test_linked_list_insert()
